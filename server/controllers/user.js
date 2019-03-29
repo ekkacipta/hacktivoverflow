@@ -2,6 +2,11 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const jwtConvert = require('../helpers/jwtConvert')
 const googleSignin = require('../helpers/googleSignin')
+const kue = require('kue')
+  , queue = kue.createQueue();
+const CronJob = require('cron').CronJob;
+
+
 
 class UserController {
     static findAll(req, res) {
@@ -30,7 +35,7 @@ class UserController {
         User
             .create(req.body)
             .then((data) => {
-                res.status(201).json(data)
+                res.status(201).json(data) 
             })
             .catch((err) => {
                 res.status(400).json(err)

@@ -7,14 +7,16 @@ const answerRouter = require('./routes/answer')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const schedule = require('./helpers/cron')
 
 mongoose.connect('mongodb://localhost:27017/hacktivOverflow', { useNewUrlParser: true })
 
 app.use(cors())
-
+schedule()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cookieParser())
+
 
 app.use('/users', userRouter)
 app.use('/questions', questionRouter)
